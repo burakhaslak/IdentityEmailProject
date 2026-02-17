@@ -1,0 +1,118 @@
+﻿@model ConfirmMailViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" type="image/png" sizes="16x16" href="/admindoc/mendy-admin/package/assets/images/favicon.png">
+    <title>Email Verification - Brock Mail</title>
+    <link href="/admindoc/mendy-admin/package/dist/css/style.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center"
+             style="background:url(/admindoc/mendy-admin/package/assets/images/big/auth-bg.jpg) no-repeat center center;">
+            <div class="auth-box">
+                <div>
+                    <div class="logo text-center">
+                        <span class="d-block"><img src="/admindoc/mendy-admin/package/assets/images/logo-icon.png" alt="logo" /></span>
+                        <h5 class="font-medium mb-3 mt-3">Email Verification</h5>
+                        <p class="text-muted">
+                            We sent a verification code to<br />
+                            <strong>@ViewBag.v</strong>
+                        </p>
+                    </div>
+
+                    <!-- Form -->
+                    <div class="row">
+                        <div class="col-12">
+                           
+                          @*   asp-action="Index" *@
+                            <form class="form-horizontal" method="post">
+                                <div class="form-group text-center">
+                                    <input type="hidden" class="form-control" asp-for="Mail" />
+                                </div>
+                                <div class="form-group text-center">
+                                    <label class="mb-3">Enter 6-Digit Code</label>
+                                    <input 
+                                           class="form-control form-control-lg text-center"
+                                           type="text"
+                                           asp-for="ConfirmCode"
+                                           maxlength="6"
+                                           required
+                                           placeholder="000000"
+                                           style="font-size: 32px; letter-spacing: 15px; font-weight: bold;"
+                                           autocomplete="off">
+                                </div>
+
+                                <div class="form-group text-center mt-4">
+                                    <button class="btn btn-block btn-lg bg-gradient-primary text-white" type="submit">
+                                        VERIFY & COMPLETE REGISTRATION
+                                    </button>
+                                </div>
+
+                                <div class="form-group text-center mt-3">
+                                    <p class="text-muted">
+                                        Didn't receive the code?<br />
+                                        <a href="javascript:void(0)" onclick="resendCode()" class="text-primary">
+                                            <b>Resend Code</b>
+                                        </a>
+                                    </p>
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <a href="/Register/CreateUser" class="text-muted">
+                                        <small>← Back to Sign Up</small>
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/admindoc/mendy-admin/package/assets/libs/jquery/dist/jquery.min.js"></script>
+    <script src="/admindoc/mendy-admin/package/assets/libs/popper.js/dist/umd/popper.min.js"></script>
+    <script src="/admindoc/mendy-admin/package/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        $('[data-toggle="tooltip"]').tooltip();
+        $(".preloader").fadeOut();
+
+        // Kod tekrar gönderme fonksiyonu
+        function resendCode() {
+            // Bu fonksiyonu isterseniz ekleyebilirsiniz
+            alert('Yeni kod email adresinize gönderildi!');
+        }
+
+        // Sadece rakam girişi
+        $('input[name="enteredCode"]').on('input', function() {
+            this.value = this.value.replace(/[^0-9]/g, '');
+        });
+
+        // Otomatik focus
+        $(document).ready(function() {
+            $('input[name="enteredCode"]').focus();
+        });
+    </script>
+</body>
+
+</html>

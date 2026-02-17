@@ -1,0 +1,366 @@
+﻿@model ProjectEmailWithIdentity.DTOs.AppUserEditDto
+@{
+	ViewData["Title"] = "Profile";
+	Layout = "~/Views/Shared/_MailLayout.cshtml";
+}
+
+<style>
+	/* 1. Sidebar ve Wrapper Ayarları */
+	.email-app aside, .email-app .left-part, [class*="SideBarComponent"] {
+		display: none !important;
+	}
+
+	.email-app .right-part {
+		width: 100% !important;
+		margin-left: 0 !important;
+		border-left: none !important;
+	}
+
+	.page-wrapper {
+		margin-left: 0 !important;
+		padding-top: 20px !important;
+	}
+
+	/* 2. GENEL FONT BÜYÜTME */
+	.card-body, .tab-content, .info-item {
+		font-size: 15px !important;
+	}
+
+	.form-control {
+		font-size: 16px !important;
+		height: auto !important;
+		padding: 10px 12px !important;
+	}
+
+	label.text-muted.small {
+		font-size: 14px !important;
+		font-weight: 600;
+		color: #3e5569 !important;
+	}
+
+	/* 3. VERIFIED ROZETİ (RENK VE STİL TAMİRİ) */
+	.verified-badge {
+		background: linear-gradient(45deg, #28a745, #218838) !important;
+		color: white !important;
+		padding: 8px 18px !important;
+		border-radius: 50px !important;
+		font-size: 12px !important;
+		font-weight: 700 !important;
+		letter-spacing: 0.5px !important;
+		box-shadow: 0 4px 10px rgba(40, 167, 69, 0.3) !important;
+		display: inline-flex !important;
+		align-items: center !important;
+	}
+
+		.verified-badge i {
+			color: white !important;
+		}
+
+	/* Başlık ve Tablar */
+	.card-title {
+		font-size: 22px !important;
+		font-weight: 600;
+	}
+
+	.nav-tabs .nav-link {
+		font-size: 16px !important;
+	}
+
+	/* Progress bar altındaki yazıların boyutu */
+	h6.small.font-weight-bold {
+		font-size: 14px !important;
+		margin-bottom: 8px;
+	}
+</style>
+
+<div class="page-breadcrumb">
+	<div class="row">
+		<div class="col-12">
+			<h4 class="page-title text-dark">User Profile</h4>
+			<nav aria-label="breadcrumb">
+				<ol class="breadcrumb bg-transparent p-0">
+					<li class="breadcrumb-item"><a href="#" class="text-muted">Dashboard</a></li>
+					<li class="breadcrumb-item active text-primary" aria-current="page">My Profile</li>
+				</ol>
+			</nav>
+		</div>
+	</div>
+</div>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-lg-4 col-xlg-3">
+			<div class="card">
+				<div class="card-body text-center">
+					<div class="position-relative d-inline-block m-t-30">
+						<img src="@Model.ImageUrl" class="rounded-circle shadow" width="150" />
+						<span class="position-absolute border border-white rounded-circle bg-success p-2" style="bottom: 10px; right: 10px;"></span>
+					</div>
+					<h4 class="card-title m-t-15 mb-1">@Model.Name @Model.Surname</h4>
+					<p class="text-muted small">@(@Model.Username)</p>
+
+					<div class="verified-badge mt-2">
+						<i class="fa fa-check-circle mr-1"></i> VERIFIED ACCOUNT
+					</div>
+
+					<div class="row text-center m-t-30">
+						<div class="col-6 border-right">
+							<a href="#" class="link text-dark"><i class="icon-envelope-letter"></i> <h5 class="font-medium m-b-0">@ViewBag.messageCount</h5><small class="text-muted">Mails</small></a>
+						</div>
+						<div class="col-6">
+							<a href="#" class="link text-dark"><i class="icon-people"></i> <h5 class="font-medium m-b-0">@ViewBag.ContactCount</h5><small class="text-muted">Contacts</small></a>
+						</div>
+					</div>
+				</div>
+				<hr class="m-0">
+				<div class="card-body">
+					<h5 class="font-medium m-b-15">Social Connect</h5>
+					<div class="d-flex justify-content-around">
+						<button class="btn btn-circle btn-outline-secondary"><i class="fab fa-facebook-f"></i></button>
+						<a href="" class="btn btn-circle btn-outline-secondary"><i class="fab fa-twitter"></i></a>
+						<button class="btn btn-circle btn-outline-secondary"><i class="fab fa-linkedin-in"></i></button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-8 col-md-7">
+			<div class="card">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" id="profile-tab" data-toggle="tab" href="#profile" role="tab">About Me</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab">Edit Account</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="social-tab" data-toggle="tab" href="#social" role="tab">Social Media</a>
+					</li>
+				</ul>
+
+				<div class="tab-content">
+					<div class="tab-pane fade show active" id="profile" role="tabpanel">
+						<div class="card-body">
+							<div class="row m-b-20">
+								<div class="col-md-12">
+									<h5 class="font-medium text-uppercase mb-3">Bio</h5>
+									<p class="text-muted" style="line-height: 1.8;">
+										@Model.About
+									</p>
+								</div>
+							</div>
+							<hr>
+							<h5 class="font-medium text-uppercase m-t-30 m-b-20">Account Overview</h5>
+							<div class="row">
+								<div class="col-6 m-b-20">
+									<div class="p-3 bg-light rounded shadow-sm border-left border-primary" style="border-left-width: 5px !important;">
+										<h6 class="text-muted mb-1 small">Total Mails</h6>
+										<h4 class="mb-0 font-weight-bold text-primary">@ViewBag.messageCount</h4>
+									</div>
+								</div>
+								<div class="col-6 m-b-20">
+									<div class="p-3 bg-light rounded shadow-sm border-left border-success" style="border-left-width: 5px !important;">
+										<h6 class="text-muted mb-1 small">Account Status</h6>
+										<h4 class="mb-0 font-weight-bold text-success">Active</h4>
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="p-3 bg-light rounded shadow-sm border-left border-warning" style="border-left-width: 5px !important;">
+										<h6 class="text-muted mb-1 small">Storage Used</h6>
+										<h4 class="mb-0 font-weight-bold text-warning">1.2 GB</h4>
+									</div>
+								</div>
+								<div class="col-6">
+									<div class="p-3 bg-light rounded shadow-sm border-left border-danger" style="border-left-width: 5px !important;">
+										<h6 class="text-muted mb-1 small">Last Login</h6>
+										<h4 class="mb-0 font-weight-bold text-danger">Today</h4>
+									</div>
+								</div>
+							</div>
+							<hr>
+							<div class="map-box shadow-sm rounded overflow-hidden" style="background: #f8f9fa; min-height: 200px; display: flex; align-items: center; justify-content: center;">
+								@if (!string.IsNullOrEmpty(ViewBag.MapLocation))
+								{
+									<iframe src="@ViewBag.MapLocation"
+											width="100%"
+											height="200"
+											frameborder="0"
+											style="border:0"
+											allowfullscreen="">
+									</iframe>
+								}
+								else
+								{
+									<div class="text-center">
+										<i class="ti-location-pin font-24 text-muted"></i>
+										<p class="text-muted small m-t-10">No location added yet.</p>
+									</div>
+								}
+							</div>
+						</div>
+					</div>
+
+					<div class="tab-pane fade" id="settings" role="tabpanel">
+						<div class="card-body">
+							<h5 class="font-medium text-uppercase mb-4">Contact Information</h5>
+							<form class="form-horizontal form-material" method="post" enctype="multipart/form-data">
+								<div class="row">
+									<div class="col-md-6 form-group">
+										<label class="text-muted small">Name</label>
+										<input type="text" asp-for="Name" placeholder="Hanna" class="form-control form-control-line">
+									</div>
+									<div class="col-md-6 form-group">
+										<label class="text-muted small">Surname</label>
+										<input type="text" asp-for="Surname" placeholder="Gover" class="form-control form-control-line">
+									</div>
+									<div class="col-md-6 form-group">
+										<label class="text-muted small">Phone Number</label>
+										<input type="text" asp-for="PhoneNumber" placeholder="+90 5XX XXX XX XX" class="form-control form-control-line">
+									</div>
+									<div class="col-md-6 form-group">
+										<label class="text-muted small">Location</label>
+										<input type="text" asp-for="LocationUrl" placeholder="https://" class="form-control form-control-line">
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="text-muted small">Email Address</label>
+									<input type="email" asp-for="Mail" placeholder="hannagover@gmail.com" class="form-control form-control-line" readonly>
+									<small class="text-success"><i class="fa fa-check"></i> Primary email cannot be changed.</small>
+								</div>
+								<div class="form-group">
+									<label class="text-muted small font-weight-bold">Profile Photo</label>
+
+									<!-- Önizleme Alanı -->
+									<div class="mb-3 text-center position-relative" style="display: inline-block;">
+										<img id="imagePreview"
+											 src="@Model.ImageUrl"
+											 style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 4px solid #007bff; box-shadow: 0 6px 15px rgba(0,123,255,0.3); transition: all 0.3s ease;"
+											 alt="Profile Preview"
+											 onmouseover="this.style.transform='scale(1.05)'"
+											 onmouseout="this.style.transform='scale(1)'" />
+
+										<!-- Değiştir İkonu -->
+										<div class="position-absolute" style="bottom: 5px; right: 5px; background: #007bff; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
+											<i class="fa fa-camera text-white"></i>
+										</div>
+									</div>
+
+									<!-- Dosya Seçme -->
+									<div class="form-group">
+										<label class="text-muted small">Choose an Image</label>
+										<input type="file"
+											   asp-for="ImagePath"
+											   class="form-control-file border rounded p-2"
+											   id="imgInput"
+											   accept="image/jpeg,image/png,image/gif,image/webp"
+											   style="cursor: pointer;" />
+										<small class="text-muted d-block mt-2">
+											<i class="fa fa-info-circle text-info"></i> JPG, PNG, GIF or WEBP (Max 5MB)
+										</small>
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label class="text-muted small">Update Biography</label>
+									<textarea rows="3" asp-for="About" class="form-control form-control-line"></textarea>
+								</div>
+								<hr class="m-t-20 m-b-20">
+								<h5 class="font-medium text-uppercase mb-4">Security & Password</h5>
+
+								<div class="form-group">
+									<label class="text-muted small">Current Password</label>
+									<input type="password" asp-for="CurrentPassword" class="form-control form-control-line" placeholder="Enter current password">
+								</div>
+								<div class="row">
+									<div class="col-md-6 form-group">
+										<label class="text-muted small">New Password</label>
+										<input type="password" asp-for="Password" class="form-control form-control-line" placeholder="Enter new password">
+									</div>
+									<div class="col-md-6 form-group">
+										<label class="text-muted small">Confirm New Password</label>
+										<input type="password" asp-for="ConfirmPassword" class="form-control form-control-line" placeholder="Repeat new password">
+									</div>
+								</div>
+
+								<div class="form-group m-t-20">
+									<button class="btn btn-success btn-rounded px-4 shadow-sm">Save All Changes</button>
+								</div>
+							</form>
+						</div>
+					</div>
+
+					<div class="tab-pane fade" id="social" role="tabpanel">
+						<div class="card-body">
+							<h5 class="font-medium text-uppercase mb-4">Social Media Accounts</h5>
+							<form class="form-horizontal form-material">
+								<div class="form-group">
+									<label class="text-muted small">Social Media Link (URL)</label>
+									<input type="text" placeholder="https://instagram.com/username" class="form-control form-control-line">
+								</div>
+								<div class="form-group">
+									<label class="text-muted small">Icon (FontAwesome class or Image URL)</label>
+									<input type="text" placeholder="fab fa-instagram" class="form-control form-control-line">
+								</div>
+								<div class="form-group m-t-20">
+									<button class="btn btn-primary btn-rounded px-4 shadow-sm">Add / Update Social Media</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+	document.getElementById('imgInput').addEventListener('change', function(event) {
+		const file = event.target.files[0];
+		const preview = document.getElementById('imagePreview');
+
+		if (file) {
+			// Dosya boyut kontrolü (5MB = 5 * 1024 * 1024 bytes)
+			const maxSize = 5 * 1024 * 1024;
+			if (file.size > maxSize) {
+				alert('⚠️ File size must be less than 5MB!\nCurrent size: ' + (file.size / 1024 / 1024).toFixed(2) + 'MB');
+				event.target.value = '';
+				return;
+			}
+
+			// Dosya tipi kontrolü
+			const validTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+			if (!validTypes.includes(file.type)) {
+				alert('⚠️ Please select a valid image file!\nSupported: JPG, PNG, GIF, WEBP');
+				event.target.value = '';
+				return;
+			}
+
+			// Önizleme göster (animasyonlu)
+			const reader = new FileReader();
+			reader.onload = function(e) {
+				preview.style.opacity = '0.3';
+				preview.style.transform = 'scale(0.9)';
+
+				setTimeout(() => {
+					preview.src = e.target.result;
+					preview.style.opacity = '1';
+					preview.style.transform = 'scale(1)';
+				}, 200);
+			};
+			reader.readAsDataURL(file);
+		}
+	});
+</script>
+@* //HAREKETLI PROGRES BAR
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const progressBars = document.querySelectorAll('.progress-bar');
+        progressBars.forEach(bar => {
+            const width = bar.style.width;
+            bar.style.width = '0';
+            setTimeout(() => {
+                bar.style.width = width;
+            }, 200);
+        });
+    });
+</script> *@

@@ -1,0 +1,86 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<style>
+
+    /* 1. Tüm üst barı en sola yasla ve tam genişlik yap */
+    .topbar {
+        left: 0 !important;
+        width: 100% !important;
+        position: fixed !important; /* Sayfa kaysa da orada kalsın */
+        z-index: 1050;
+    }
+
+        /* 2. Navbar arka plan rengini ve hizalamasını düzelt */
+        .topbar .top-navbar {
+            background: #5f4bee !important; /* İstediğin mor tonu */
+            margin-left: 0 !important;
+            display: flex !important;
+            width: 100% !important;
+            min-height: 64px;
+        }
+
+            /* 3. Sol üstteki boş kalan o 'navbar-header' alanını doldur */
+            .topbar .top-navbar .navbar-header {
+                width: 250px !important; /* Sidebar genişliği ile aynı olmalı */
+                background: rgba(0,0,0,0.05) !important; /* Navbar'dan çok hafif farklı bir ton */
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                float: left;
+            }
+
+            .topbar .top-navbar .navbar-nav .nav-link,
+            .topbar .top-navbar .navbar-nav .nav-link i,
+            .topbar .top-navbar .pro-name,
+            .topbar .top-navbar .pro-name span {
+                color: #ffffff !important;
+                opacity: 1 !important; /* Şeffaflığı varsa kaldırır */
+            }
+
+            /* 4. Sağdaki menü alanını kalan boşluğa yay */
+            .topbar .top-navbar .navbar-collapse {
+                width: calc(100% - 250px) !important;
+                background: transparent !important;
+            }
+
+    /* 5. Sayfa içeriğinin navbar'ın altında kalmaması için */
+    .page-wrapper {
+        padding-top: 64px !important;
+    }
+
+</style>
+<html dir="ltr" lang="en">
+        @await Component.InvokeAsync("_DefaultHeaderComponentPartial")
+<body>
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <div id="main-wrapper" >
+        @await Component.InvokeAsync("_DefaultTopBarComponentPartial")
+        <div class="page-wrapper" style="margin-left: 0 !important;" data-navbarbg="skin3">
+            <div class="container-fluid">
+                <div class="email-app">
+                    @await Component.InvokeAsync("_DefaultMailSideBarComponentPartial")
+                    <div class="right-part mail-list bg-white">
+                        <div class="table-responsive">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer text-center">
+                All Rights Reserved by <a href="https://jthemes.com" target="_blank">Jthemes Studio</a>.
+            </footer>
+        </div>
+    </div> 
+    @await Component.InvokeAsync("_DefaultScriptComponentPartial")
+
+</body>
+
+</html>

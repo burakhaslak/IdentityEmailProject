@@ -1,0 +1,416 @@
+﻿@model List<ProjectEmailWithIdentity.Entities.Message>
+@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_MailLayout.cshtml";
+}
+
+
+<style>
+	/* GENEL DÜZENLEMELER */
+	.email-wrapper {
+		padding: 25px 35px; /* Sağdan soldan boşluk */
+		max-width: 1400px;
+		margin: 0 auto;
+	}
+
+	.email-container {
+		background: #fff;
+		border-radius: 12px;
+		box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+		overflow: hidden;
+	}
+
+	.email-header {
+		padding: 20px 25px;
+		background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+		color: white;
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+	}
+
+		.email-header h4 {
+			margin: 0;
+			font-size: 22px;
+			font-weight: 600;
+		}
+
+	.email-count {
+		background: rgba(255,255,255,0.2);
+		padding: 6px 14px;
+		border-radius: 20px;
+		font-size: 14px;
+		font-weight: 500;
+	}
+
+	/* TABLO DÜZENLEME */
+	.email-table {
+		margin: 0;
+		width: 100%;
+		table-layout: fixed;
+	}
+
+		.email-table tbody tr {
+			border-bottom: 1px solid #f0f0f0;
+			transition: all 0.2s ease;
+		}
+
+			.email-table tbody tr:hover {
+				background-color: #f8f9ff !important;
+				transform: translateX(3px);
+				box-shadow: 0 2px 8px rgba(102, 126, 234, 0.1);
+			}
+
+		.email-table td {
+			padding: 18px 15px;
+			vertical-align: middle;
+			font-size: 15px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+
+	/* OKUNMAMIŞ MESAJ */
+	.unread {
+		background-color: #f0f4ff;
+		border-left: 4px solid #667eea;
+	}
+
+		.unread td {
+			font-weight: 600;
+			color: #2c3e50;
+		}
+
+	/* YILDIZ İKONU */
+	.starred {
+		text-align: center;
+		width: 60px;
+	}
+
+		.starred i {
+			font-size: 18px;
+			cursor: pointer;
+			transition: all 0.2s;
+		}
+
+			.starred i:hover {
+				transform: scale(1.2);
+			}
+
+	/* KONU BAŞLIĞI */
+	/* KONU BAŞLIĞI */
+	.subject-col {
+		width: 25%;
+	}
+
+		.subject-col h6 {
+			margin: 0;
+			font-size: 16px;
+			font-weight: 600;
+			color: #2c3e50;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			line-height: 1.5; /* Dikey hizalama için */
+		}
+
+	/* MESAJ İÇERİĞİ */
+	.content-col {
+		width: 40%;
+		display: flex;
+		align-items: center;
+		gap: 8px; /* Etiket ve metin arası boşluk */
+	}
+
+	.label {
+		display: inline-flex;
+		align-items: center;
+		padding: 5px 12px; /* Biraz daha yüksek */
+		border-radius: 12px;
+		font-size: 11px;
+		font-weight: 600;
+		text-transform: uppercase;
+		letter-spacing: 0.5px;
+		flex-shrink: 0;
+		height: 24px; /* Sabit yükseklik */
+		line-height: 1;
+	}
+
+	.message-preview {
+		color: #6c757d;
+		font-size: 14px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		flex: 1;
+		min-width: 0; /* Flexbox taşmasını önler */
+		line-height: 1.5;
+	}
+	/* BUTONLAR */
+	.actions-col {
+		width: 180px;
+		text-align: center;
+	}
+
+	.btn-group-custom {
+		display: inline-flex;
+		gap: 6px;
+	}
+
+	.btn-icon {
+		width: 36px;
+		height: 36px;
+		padding: 0;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 8px;
+		border: 1px solid #e0e0e0;
+		background: white;
+		transition: all 0.2s;
+		cursor: pointer;
+	}
+
+		.btn-icon:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+		}
+
+		.btn-icon.btn-read:hover {
+			background: #3498db;
+			border-color: #3498db;
+			color: white;
+		}
+
+		.btn-icon.btn-draft:hover {
+			background: #f39c12;
+			border-color: #f39c12;
+			color: white;
+		}
+
+		.btn-icon.btn-trash:hover {
+			background: #e74c3c;
+			border-color: #e74c3c;
+			color: white;
+		}
+
+	/* TARİH */
+	.time-col {
+		width: 120px;
+		text-align: right;
+		font-size: 14px;
+		color: #95a5a6;
+		font-weight: 500;
+	}
+
+	/* PAGİNATİON */
+	.pagination-wrapper {
+		padding: 25px;
+		background: #f8f9fa;
+		border-top: 1px solid #e9ecef;
+	}
+
+	.pagination {
+		margin: 0;
+		gap: 8px;
+	}
+
+	.page-item .page-link {
+		border-radius: 8px;
+		border: 1px solid #dee2e6;
+		color: #495057;
+		padding: 10px 16px;
+		font-weight: 500;
+		transition: all 0.2s;
+	}
+
+		.page-item .page-link:hover {
+			background: #667eea;
+			border-color: #667eea;
+			color: white;
+			transform: translateY(-2px);
+		}
+
+	.page-item.active .page-link {
+		background: #667eea;
+		border-color: #667eea;
+	}
+
+	.empty-inbox {
+		text-align: center;
+		padding: 60px 20px;
+		color: #95a5a6;
+	}
+
+		.empty-inbox i {
+			font-size: 64px;
+			margin-bottom: 20px;
+			opacity: 0.3;
+		}
+
+	@@media (max-width: 1200px) {
+		.email-wrapper {
+			padding: 20px 25px;
+		}
+	}
+
+	@@media (max-width: 768px) {
+		.email-wrapper {
+			padding: 15px;
+		}
+
+		.content-col, .actions-col {
+			display: none;
+		}
+
+		.subject-col {
+			width: 70%;
+		}
+	}
+
+	.dashboard-card {
+		border: none;
+		border-radius: 12px;
+		transition: transform 0.3s;
+		color: white;
+	}
+
+		.dashboard-card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+		}
+
+	.card-icon {
+		font-size: 35px;
+		opacity: 0.8;
+	}
+</style>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3">
+			<div class="card dashboard-card bg-info">
+				<div class="card-body">
+					<div class="d-flex justify-content-between align-items-center">
+						<div>
+							<h2 class="font-bold">@ViewBag.InboxCount</h2>
+							<p class="mb-0">Incoming</p>
+						</div>
+						<i class="ti-email card-icon"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card dashboard-card" style="background-color: #6f42c1;">
+				<div class="card-body">
+					<div class="d-flex justify-content-between align-items-center">
+						<div>
+							<h2 class="font-bold">@ViewBag.SentCount</h2>
+							<p class="mb-0">Sent Messages</p>
+						</div>
+						<i class="ti-export card-icon"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card dashboard-card bg-warning">
+				<div class="card-body">
+					<div class="d-flex justify-content-between align-items-center">
+						<div>
+							<h2 class="font-bold">@ViewBag.StarredCount</h2>
+							<p class="mb-0">Starred</p>
+						</div>
+						<i class="ti-star card-icon"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3">
+			<div class="card dashboard-card bg-secondary">
+				<div class="card-body">
+					<div class="d-flex justify-content-between align-items-center">
+						<div>
+							<h2 class="font-bold">@ViewBag.DraftCount</h2>
+							<p class="mb-0">Drafts</p>
+						</div>
+						<i class="ti-pencil-alt card-icon"></i>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="row m-t-30">
+		<div class="col-lg-7">
+			<div class="card" style="border-radius: 15px;">
+				<div class="card-body">
+					<h4 class="card-title">Mail Activity</h4>
+					<div id="activity-chart" style="height: 300px;">
+						<canvas id="myChart"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-lg-4">
+			<div class="card" style="border-radius: 12px;">
+				<div class="card-body">
+					<h5 class="card-title mb-3">Recent Messages</h5>
+					<div class="message-center" style="max-height: 310px; overflow-y: auto;">
+						@foreach (var msg in Model)
+						{
+							<a href="/Inbox/MessageDetail/@msg.MessageId" class="message-item d-flex align-items-center p-2 border-bottom text-dark">
+								<div class="btn btn-circle btn-sm btn-light"><i class="ti-user text-info"></i></div>
+								<div class="ml-2">
+									<h6 class="mb-0">@msg.Subject</h6>
+									<small class="text-muted text-truncate d-inline-block" style="max-width: 150px;">@msg.SenderMail</small>
+								</div>
+								<div class="ml-auto">
+									<small class="text-muted">@msg.SendDate.ToString("HH:mm")</small>
+								</div>
+							</a>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+	var realData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.ChartData));
+
+	var ctx = document.getElementById('myChart').getContext('2d');
+	var myChart = new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+			datasets: [{
+				label: 'Sent Mails Activity',
+				data: realData, 
+				borderColor: '#764ba2',
+				tension: 0.4,
+				fill: true,
+				backgroundColor: 'rgba(118, 75, 162, 0.1)',
+				borderWidth: 3,
+				pointBackgroundColor: '#764ba2',
+				pointRadius: 4
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false,
+			scales: {
+				y: {
+					beginAtZero: true,
+					ticks: {
+						stepSize: 1 
+					}
+				}
+			}
+		}
+	});
+</script>

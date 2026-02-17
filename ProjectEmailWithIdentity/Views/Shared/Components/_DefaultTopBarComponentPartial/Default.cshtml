@@ -1,0 +1,123 @@
+﻿@model TopBarMessageViewModel
+@using ProjectEmailWithIdentity.Helpers
+
+<header class="topbar">
+    <nav class="navbar top-navbar navbar-expand-md navbar-dark" data-navbarbg="skin6" style="margin-left: 0 !important;">
+        <div class="navbar-header" data-logobg="skin1">
+            <div class="navbar-brand">
+                <a href="/Inbox/Inbox/" class="logo">
+                    <img src="~/images/img3.png" alt="logo" class="mr-2" style="width:25px;">
+                    <span class="text-white" style="font-weight:700; font-size:18px; letter-spacing:1px;">
+                        BROCKMAIL
+                    </span>
+                </a>
+            </div>
+            <a class="topbartoggler d-block d-md-none" href="javascript:void(0)" data-toggle="collapse"
+               data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false">
+                <i class="ti-more"></i>
+            </a>
+        </div>
+
+        <div class="navbar-collapse collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav float-left mr-auto">
+                <li class="nav-item search-box">
+                    <a class="nav-link waves-effect waves-dark" href="javascript:void(0)">
+                        <i data-feather="search"></i>
+                    </a>
+                    <form class="app-search position-absolute">
+                        <input type="text" class="form-control" placeholder="Search &amp; enter">
+                        <a class="srh-btn"><i class="ti-close"></i></a>
+                    </form>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav float-right">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark pro-pic text-white" href="" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <span class="mr-3 font-normal d-none d-sm-inline-block pro-name">
+                            <span>Hello,</span> @ViewBag.Name
+                        </span>
+                        <img src="@ViewBag.Image" alt="user" class="rounded-circle" width="40">
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                        <div class="d-flex no-block align-items-center p-3 bg-light mb-2">
+                            <div class=""><img src="@ViewBag.Image" alt="user" class="rounded-circle" width="60"></div>
+                            <div class="ml-2">
+                                <h4 class="mb-0">@ViewBag.Name</h4>
+                                <p class="mb-0">@ViewBag.Mail</p>
+                            </div>
+                        </div>
+                        <div class="profile-dis scrollable">
+                            <a class="dropdown-item" href="/MyProfile/Profile/">
+                                <i class="ti-user mx-1"></i> My Profile
+                            </a>
+                            <a class="dropdown-item" href="/Inbox/Inbox/">
+                                <i class="ti-email mx-1"></i> Inbox
+                            </a>
+                            <a class="dropdown-item" href="/Dashboard/Index/">
+                                <i class="ti-layout-grid2 mx-1"></i> Dashboard
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="javascript:void(0)">
+                                <i class="fa fa-power-off mx-1"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="2" data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <i data-feather="mail"></i>
+                        @if (Model.UnreadCount > 0)
+                        {
+                            <span class="badge badge-pill badge-danger noti">@Model.UnreadCount</span>
+                        }
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown" aria-labelledby="2">
+                        <ul class="list-style-none">
+                            <li>
+                                <div class="drop-title bg-light">
+                                    <h4 class="mb-0 mt-1">@Model.UnreadCount New Messages</h4>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="message-center message-body">
+                                    @if (Model.UnreadMessages.Any())
+                                    {
+                                        @foreach (var item in Model.UnreadMessages)
+                                        {
+                                            <a href="/Inbox/MessageDetail/@item.MessageId" class="message-item">
+                                                <span class="user-img">
+                                                    @* Buraya gönderen kişinin profil resmi de gelebilir, şimdilik sabit bir ikon koyuyoruz *@
+                                                    <img src="~/images/user-default.png" alt="user" class="rounded-circle">
+                                                    <span class="profile-status online pull-right"></span>
+                                                </span>
+                                                <div class="mail-contnet">
+                                                    <h5 class="message-title">@item.SenderMail</h5>
+                                                    <span class="mail-desc">@item.Subject</span>
+                                                    <span class="time">@DateHelper.ToRelativeDate(item.SendDate)</span>
+                                                </div>
+                                            </a>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <div class="p-3 text-center text-muted">No new messages</div>
+                                    }
+                                </div>
+                            </li>
+                            <li>
+                                <a class="nav-link text-center link text-dark" href="/Inbox/Inbox/">
+                                    <b>See all e-Mails</b>
+                                    <i class="fa fa-angle-right"></i>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

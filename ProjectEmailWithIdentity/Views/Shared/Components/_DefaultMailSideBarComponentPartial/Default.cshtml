@@ -1,0 +1,132 @@
+﻿<style>
+	/* Logonun canlı tonlarıyla uyumlu özel etiketler */
+	.label-yellow {
+		background-color: #f1c40f;
+		color: #fff;
+	}
+	/* Canlı Sarı */
+	.label-blue {
+		background-color: #3498db;
+		color: #fff;
+	}
+	/* Profesyonel Mavi */
+	.label-purple {
+		background-color: #8e44ad;
+		color: #fff;
+	}
+	/* Derin Mor */
+	.label-orange {
+		background-color: #e67e22;
+		color: #fff;
+	}
+	/* Enerjik Turuncu */
+
+	/* Metinlerin logonun ciddiyetiyle uyumlu kalması için */
+	.font-normal {
+		color: #3e5569 !important;
+		font-weight: 500;
+	}
+
+	.label-red {
+		background-color: #e74c3c;
+		color: #fff;
+	}
+	/* Canlı Kırmızı */
+
+	<style >
+	.color-work {
+		color: #e67e22 !important;
+	}
+
+	.color-friends {
+		color: #e91e63 !important;
+	}
+	/* Business ve Family zaten Bootstrap sınıflarıyla (text-info, text-success) çözülebiliyor. */
+</style>
+</style>
+<div class="left-part bg-white">
+	<a class="ti-menu ti-close btn btn-success show-left-part d-block d-md-none" href="javascript:void(0)"></a>
+	<div class="scrollable" style="height:100%;">
+		<div class="p-15">
+			<a id="compose_mail" class="waves-effect waves-light btn btn-danger d-block" href="/Inbox/SendMessage/">Compose</a>
+		</div>
+		<div class="divider"></div>
+		<ul class="list-group">
+			<li>
+				<small class="p-15 grey-text text-lighten-1 db">Folders</small>
+			</li>
+			<li class="list-group-item">
+				<a href="/Inbox/Inbox" class="list-group-item-action">
+					<i class="mdi mdi-inbox text-info"></i>
+					<span class="font-normal">Inbox</span>
+					<span class="label label-blue float-right">@ViewBag.InboxCount</span>
+				</a>
+			</li>
+
+			<li class="list-group-item">
+				<a href="/Inbox/Starred/" class="list-group-item-action">
+					<i class="mdi mdi-star text-warning"></i>
+					<span class="font-normal">Starred</span>
+					<span class="label label-yellow float-right">@ViewBag.StarCount</span>
+				</a>
+			</li>
+
+			<li class="list-group-item">
+				<a href="/Inbox/Draft/" class="list-group-item-action">
+					<i class="mdi mdi-send" style="color: #e67e22;"></i>
+					<span class="font-normal">Draft</span>
+					<span class="label label-orange float-right">@ViewBag.DraftCount</span>
+				</a>
+			</li>
+
+			<li class="list-group-item">
+				<a href="/Inbox/SentMessages/" class="list-group-item-action">
+					<i class="mdi mdi-email" style="color: #8e44ad;"></i>
+					<span class="font-normal">Sent Mail</span>
+					<span class="label label-purple float-right">@ViewBag.SentCount</span>
+				</a>
+			</li>
+			<li class="list-group-item">
+				<a href="/Inbox/Trash/" class="list-group-item-action">
+					<i class="mdi mdi-delete text-danger"></i>
+					<span class="font-normal">Trash</span>
+					<span class="label label-red float-right">@ViewBag.TrashCount</span>
+				</a>
+			</li>
+			<li class="list-group-item">
+				<hr>
+			</li>
+			<li>
+				<small class="p-15 grey-text text-lighten-1 db">Labels</small>
+			</li>
+			<li class="list-group-item">
+				<a href="javascript:void(0)" class="list-group-item-action">
+					<i class="mdi mdi-checkbox-blank-circle" style="color: #e67e22; margin-right: 10px;"></i>
+					<span class="font-normal">Work</span>
+				</a>
+			</li>
+
+			<li class="list-group-item">
+				<a href="javascript:void(0)" class="list-group-item-action">
+					<i class="mdi mdi-checkbox-blank-circle text-info" style="margin-right: 10px;"></i>
+					<span class="font-normal">Business</span>
+				</a>
+			</li>
+
+			<li class="list-group-item">
+				<a href="javascript:void(0)" class="list-group-item-action">
+					<i class="mdi mdi-checkbox-blank-circle text-success" style="margin-right: 10px;"></i>
+					<span class="font-normal">Family</span>
+				</a>
+			</li>
+
+			<li class="list-group-item">
+				<a href="javascript:void(0)" class="list-group-item-action">
+					<i class="mdi mdi-checkbox-blank-circle" style="color: #e91e63; margin-right: 10px;"></i>
+					<span class="font-normal">Friends</span>
+				</a>
+			</li>
+			
+		</ul>
+	</div>
+</div>

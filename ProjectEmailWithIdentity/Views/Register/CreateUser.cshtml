@@ -1,0 +1,246 @@
+﻿@model ProjectEmailWithIdentity.DTOs.CreateUserRegisterDto
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="/admindoc/mendy-admin/package/assets/images/favicon.png">
+    <title>Mendy Admin Template - The Ultimate Multipurpose admin template</title>
+    <!-- Custom CSS -->
+    <link href="/admindoc/mendy-admin/package/dist/css/style.min.css" rel="stylesheet">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div class="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Login box.scss -->
+        <!-- ============================================================== -->
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" style="background:url(/admindoc/mendy-admin/package/assets/images/big/auth-bg.jpg) no-repeat center center;">
+            <div class="auth-box">
+                <div>
+                    <div class="logo">
+                        <span class="d-block"><img src="/admindoc/mendy-admin/package/assets/images/logo-icon.png" alt="logo" /></span>
+                        <h5 class="font-medium mb-3">Sign Up to Brock Mail Platform</h5>
+                    </div>
+                    <!-- Form -->
+                    <div class="row">
+                        <div class="col-12">
+                            <form class="form-horizontal" method="post">
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <input asp-for="Name" class="form-control form-control-lg" type="text" required=" "
+                                               placeholder="Name">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <input asp-for="Surname" class="form-control form-control-lg" type="text" required=""
+                                               placeholder="Surname">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <input asp-for="UserName" class="form-control form-control-lg" type="text" required=" "
+                                               placeholder="Username">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <input asp-for="EMail" class="form-control form-control-lg" type="text" required=" "
+                                               placeholder="Email">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <input asp-for="Password" class="form-control form-control-lg" type="password" required=" "
+                                               placeholder="Password">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-12">
+                                        <input asp-for="ConfirmPassword" class="form-control form-control-lg" type="password" required=" "
+                                               placeholder="Confirm Password">
+                                        <span asp-validation-for="ConfirmPassword"></span>
+                                    </div>
+                                  
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-md-12 ">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck1" disabled>
+                                            <label class="custom-control-label" for="customCheck1">
+                                                I agree to all <a href="javascript:void(0)" class="link" data-toggle="modal" data-target="#termsModal">Terms</a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row form-group text-center">
+                                    <div class="col-12">
+                                        <button id="btnSignUp" class="btn btn-block btn-lg bg-gradient-primary text-white" type="submit" disabled> 
+                                            SIGN
+                                            UP
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="row form-group mb-0 mt-2">
+                                    <div class="col-12 text-center ">
+                                        Already have an account? <a href="/Login/UserLogin/" class="text-primary ml-1">
+                                            <b>
+                                                Sign
+                                                In
+                                            </b>
+                                        </a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- Login box.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper scss in scafholding.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Page wrapper scss in scafholding.scss -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Right Sidebar -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- All Required js -->
+    <!-- ============================================================== -->
+    <script src="/admindoc/mendy-admin/package/assets/libs/jquery/dist/jquery.min.js "></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="/admindoc/mendy-admin/package/assets/libs/popper.js/dist/umd/popper.min.js "></script>
+    <script src="/admindoc/mendy-admin/package/assets/libs/bootstrap/dist/js/bootstrap.min.js "></script>
+    <!-- ============================================================== -->
+    <!-- This page plugin js -->
+    <!-- ============================================================== -->
+    <script>
+                $(document).ready(function () {
+            // Popup içindeki "I agree" butonuna tıklandığında
+            $('#agreeButton').on('click', function () {
+                // 1. Checkbox'ı işaretle ve kilidini aç
+                $('#customCheck1').prop('checked', true).prop('disabled', false);
+
+                // 2. Sign Up butonunun kilidini aç
+                $('#btnSignUp').prop('disabled', false);
+
+                // 3. Modalı kapat
+                $('#termsModal').modal('hide');
+            });
+
+            // Kullanıcı manuel olarak checkbox'ı kaldırırsa butonu tekrar pasif yap
+            $('#customCheck1').on('change', function () {
+                if ($(this).is(':checked')) {
+                    $('#btnSignUp').prop('disabled', false);
+                } else {
+                    $('#btnSignUp').prop('disabled', true);
+                }
+            });
+        });
+        $('[data-toggle="tooltip "]').tooltip();
+        $(".preloader ").fadeOut();
+    </script>
+    <div class="modal fade" id="termsModal" tabindex="-1" role="dialog" aria-labelledby="termsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="termsModalLabel">Terms and Conditions</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="max-height: 400px; overflow-y: auto;">
+                    <h4 class="text-center mb-4">Terms of Service and Privacy Policy</h4>
+
+                    <p><strong>Last Updated:</strong> February 14, 2026</p>
+
+                    <p>Please read these Terms and Conditions carefully before using the Brock Mail Platform. By creating an account, you agree to be bound by these terms.</p>
+
+                    <hr>
+
+                    <h5>1. Acceptance of Terms</h5>
+                    <p>By accessing or using our services, you confirm that you can form a binding contract with Brock Mail and that you agree to comply with these Terms. If you do not agree, you are not authorized to use the platform.</p>
+
+                    <h5>2. Account Security and Responsibilities</h5>
+                    <ul>
+                        <li>You must provide accurate and complete information during registration.</li>
+                        <li>You are solely responsible for maintaining the confidentiality of your account credentials and password.</li>
+                        <li>You agree to notify us immediately of any unauthorized access to your account.</li>
+                        <li>Brock Mail cannot and will not be liable for any loss or damage arising from your failure to comply with this security obligation.</li>
+                    </ul>
+
+                    <h5>3. User Conduct and Restrictions</h5>
+                    <p>You agree NOT to use the Brock Mail Platform to:</p>
+                    <ul>
+                        <li>Send unsolicited bulk messages (SPAM) or any fraudulent content.</li>
+                        <li>Distribute viruses, malware, or any other malicious software code.</li>
+                        <li>Impersonate any person or entity or falsely state your affiliation with a person or entity.</li>
+                        <li>Engage in any activity that interferes with or disrupts the service (or the servers and networks which are connected to the service).</li>
+                    </ul>
+
+                    <h5>4. Privacy and Data Protection</h5>
+                    <p>Your privacy is important to us. Our platform uses high-level encryption to secure your communications. We collect and use your data as described in our Privacy Policy, primarily to provide and improve our mail services. We do not sell your personal data to third parties.</p>
+
+                    <h5>5. Service Availability and Modifications</h5>
+                    <p>We strive to provide 24/7 service availability. However, we reserve the right to modify, suspend, or discontinue the service at any time for maintenance, updates, or security reasons without prior notice.</p>
+
+                    <h5>6. Intellectual Property</h5>
+                    <p>All content, trademarks, and logos on the Brock Mail Platform are the property of Brock Mail or its licensors. You may not use, copy, or distribute any part of the service without explicit written permission.</p>
+
+                    <h5>7. Limitation of Liability</h5>
+                    <p>To the maximum extent permitted by law, Brock Mail shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data.</p>
+
+                    <h5>8. Termination of Account</h5>
+                    <p>We reserve the right to suspend or terminate your account if you violate these terms or engage in illegal activities using our platform.</p>
+
+                    <div class="alert alert-info mt-4">
+                        <strong>Note:</strong> By clicking "I have read and I agree" below, you acknowledge that you have understood the terms and conditions in their entirety.
+                    </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="agreeButton" class="btn btn-primary">I have read and I agree</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
