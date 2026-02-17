@@ -23,12 +23,7 @@ namespace ProjectEmailWithIdentity.Controllers
         public async Task<IActionResult> Inbox()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var values = await _context.Messages
-                                .Include(x => x.Category)
-                                .Where(y => y.ReceiverMail == user.Email && !y.IsTrash) 
-                                .OrderBy(x => x.IsStatus)
-                                .ThenByDescending(y => y.SendDate)
-                                .ToListAsync();
+            var values = await _context.Messages.Include(x => x.Category).Where(y => y.ReceiverMail == user.Email && !y.IsTrash).OrderBy(x => x.IsStatus).ThenByDescending(y => y.SendDate).ToListAsync();
             return View(values);
         }
 
@@ -59,11 +54,7 @@ namespace ProjectEmailWithIdentity.Controllers
         public async Task<IActionResult> Trash()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var values = await _context.Messages
-                                .Include(x => x.Category)
-                                .Where(y => y.ReceiverMail == user.Email && y.IsTrash)
-                                .OrderByDescending(x => x.SendDate)
-                                .ToListAsync();
+            var values = await _context.Messages .Include(x => x.Category).Where(y => y.ReceiverMail == user.Email && y.IsTrash) .OrderByDescending(x => x.SendDate).ToListAsync();
             ViewBag.TrashCount = values.Count;
             return View(values);
         }

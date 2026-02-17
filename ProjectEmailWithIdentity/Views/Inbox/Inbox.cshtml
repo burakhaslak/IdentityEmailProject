@@ -305,10 +305,9 @@
 								}
 								<span class="message-preview">
 									@{
-										// HTML etiketlerini temizle (Regex ile)
 										var plainText = System.Text.RegularExpressions.Regex.Replace(item.MessageDetail ?? "", "<.*?>", string.Empty);
 
-										// Temiz metinden substring al
+
 										@(plainText.Length > 50 ? plainText.Substring(0, 50) + "..." : plainText)
 									}
 								</span>
@@ -318,12 +317,12 @@
 									<button onclick="updateStatus(@item.MessageId, 'read')"
 											class="btn-icon btn-read"
 											title="Mark as Read">
-										<i class="fa fa-envelope-open"></i>
+										<i class="fa @(item.IsStatus ? "fa-envelope-open" : "fa-envelope")"></i>
 									</button>
 									<button onclick="updateStatus(@item.MessageId, 'trash')"
 											class="btn-icon btn-trash"
-											title="Delete">
-										<i class="fa fa-trash"></i>
+											title="Move to Trash">
+										<i class="ti-trash"></i>
 									</button>
 								</div>
 							</td>

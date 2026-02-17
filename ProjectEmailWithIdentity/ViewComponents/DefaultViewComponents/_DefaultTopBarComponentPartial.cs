@@ -22,9 +22,19 @@ namespace ProjectEmailWithIdentity.ViewComponents.DefaultViewComponents
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var email = user.Email;
+           
             ViewBag.Name = user.Name + " " + user.Surname;
             ViewBag.Mail = user.Email;
             ViewBag.Image = user.ImageUrl;
+
+            var unreadMessages = await _context.Messages.Where(x => x.ReceiverMail == email && !x.IsStatus && !x.IsTrash).OrderByDescending(x => x.SendDate).Take(5).ToListAsync();
+
+           
+            var senderEmails = unreadMessages.Select(x => x.SenderMail).Distinct().ToList();
+            var senderImages = await _userManager.Users.Where(u => senderEmails.Contains(u.Email)).ToDictionaryAsync(u => u.Email, u => u.ImageUrl ?? "/images/user-default.png");
+
+            ViewBag.SenderImages = senderImages;
+
 
             var model = new TopBarMessageViewModel
             {
